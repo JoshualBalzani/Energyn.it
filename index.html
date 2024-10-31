@@ -15,110 +15,162 @@
     body {
       font-family: Arial, sans-serif;
       color: #333;
-      line-height: 1.6;
+      background: linear-gradient(to bottom right, #f9f9f9, #ffe5d5); /* Sfondo sfumato */
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    /* Header */
     header {
-      background: linear-gradient(135deg, #FF5733, #C70039); /* Sfumatura arancione/rosso */
+      background: linear-gradient(135deg, #FF4500, #FF8C00);
       color: #fff;
-      padding: 2em 1em; /* Ridotto padding */
+      padding: 3em 1em;
       text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2), transparent);
+      opacity: 0.5;
+      transform: scale(1.1);
+      animation: rotateBackground 12s infinite linear;
     }
 
     .header-content h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.2em;
+      font-size: 3em;
       font-weight: bold;
+      margin-bottom: 0.3em;
+      animation: fadeIn 1.5s ease-out;
     }
 
     .header-content p {
-      font-size: 1.2em;
+      font-size: 1.3em;
+      opacity: 0.9;
+      animation: fadeIn 2s ease-out;
     }
 
+    /* Animazioni */
+    @keyframes rotateBackground {
+      0% { transform: scale(1.1) rotate(0deg); }
+      100% { transform: scale(1.1) rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Main container */
     main {
       flex: 1;
-      padding: 1em; /* Ridotto padding */
+      padding: 3em 1em;
       max-width: 1200px;
       margin: 0 auto;
-      display: flex; /* Cambiato a flex */
-      flex-direction: column;
-      gap: 2em;
+      display: grid;
+      gap: 1.5em;
+      animation: bounceIn 1s ease-out;
     }
 
-    h2 {
-      font-size: 1.8em;
-      margin-bottom: 0.5em;
-      color: #FF5733; /* Arancione */
-      border-bottom: 2px solid #FF5733;
-      padding-bottom: 0.3em;
+    /* Design a schede */
+    .card {
+      padding: 2em;
+      background: #FFF7F0;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(255, 69, 0, 0.2);
+      transition: transform 0.4s, box-shadow 0.4s, background 0.4s;
+      cursor: pointer;
+      position: relative;
     }
 
-    section {
-      padding: 1.5em; /* Ridotto padding */
-      background: #f4f4f4;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .card:hover {
+      background: linear-gradient(135deg, #FF8C00, #FF4500);
+      color: #fff;
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255, 69, 0, 0.3);
     }
 
-    p, .contact-info p {
-      font-size: 1em;
-      margin-bottom: 0.8em;
+    .card h2 {
+      font-size: 2em;
+      color: #FF4500;
+      text-align: center;
+      margin-bottom: 1em;
+    }
+
+    .card:hover h2 {
+      color: #fff;
+    }
+
+    .card p {
+      font-size: 1.1em;
+      color: #333;
+      text-align: justify;
+    }
+
+    .card:hover p {
+      color: #fff;
     }
 
     .contact-info p {
       display: flex;
       flex-direction: column;
+      font-size: 1em;
+      margin-bottom: 1em;
     }
 
+    /* Colore dei link */
     a {
-      color: #FF5733;
+      color: #FF4500;
       text-decoration: none;
+      transition: color 0.3s;
     }
 
     a:hover {
+      color: #FF8C00;
       text-decoration: underline;
     }
 
+    /* Footer */
     footer {
       text-align: center;
       padding: 1.5em;
-      background-color: #C70039; /* Rosso scuro */
+      background-color: #FF4500;
       color: #fff;
+      font-size: 0.9em;
+      animation: fadeIn 3s ease-out;
     }
 
     /* Responsive design */
     @media (max-width: 768px) {
       header h1 {
-        font-size: 2em;
+        font-size: 2.5em;
       }
 
-      main {
-        padding: 1em; /* Ridotto padding per schermi piccoli */
-      }
-
-      section {
-        padding: 1.5em; /* Ridotto padding per schermi piccoli */
+      .card {
+        padding: 1.5em;
       }
     }
 
     @media (max-width: 480px) {
       header h1 {
-        font-size: 1.8em;
+        font-size: 2em;
       }
 
-      h2 {
-        font-size: 1.6em;
-      }
-
-      section p, .contact-info p {
+      .card p, .contact-info p {
         font-size: 0.9em;
-      }
-
-      .header-content p {
-        font-size: 1em; /* Ridotto per schermi piccoli */
       }
     }
   </style>
@@ -132,17 +184,17 @@
   </header>
 
   <main>
-    <section id="about">
+    <div class="card" id="about">
       <h2>Chi Siamo</h2>
       <p>Situata a Forlì, Energyn offre soluzioni avanzate di riscaldamento, ventilazione e climatizzazione per industrie e privati.</p>
-    </section>
+    </div>
 
-    <section id="services">
+    <div class="card" id="services">
       <h2>Servizi</h2>
       <p>Con una vasta esperienza nel settore HVAC, forniamo consulenza tecnica e assistenza per migliorare il comfort e l'efficienza energetica.</p>
-    </section>
+    </div>
 
-    <section id="contact">
+    <div class="card" id="contact">
       <h2>Contatti</h2>
       <div class="contact-info">
         <p><strong>Indirizzo:</strong> Viale Bologna 28, 47122, Forlì, FC, Italia</p>
@@ -151,7 +203,7 @@
         <p><strong>Telefono:</strong> +39 3496808840</p>
         <p><strong>Email:</strong> <a href="mailto:info.energyn@yahoo.com">info.energyn@yahoo.com</a></p>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer>
@@ -159,4 +211,3 @@
   </footer>
 </body>
 </html>
-
